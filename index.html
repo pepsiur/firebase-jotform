@@ -1,13 +1,24 @@
-<div style="font-family: Arial; text-align: center; padding: 10px;">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Datos en tiempo real</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 20px; }
+    h2 { color: #333; }
+    p { font-size: 20px; }
+  </style>
+</head>
+<body>
   <h2>📡 Datos en tiempo real</h2>
-  <p style="font-size: 20px;">🌡 Temperatura: <span id="temp">--</span> °C</p>
-  <p style="font-size: 20px;">💧 Humedad: <span id="hum">--</span> %</p>
-</div>
+  <p>🌡 Temperatura: <span id="temp">--</span> °C</p>
+  <p>💧 Humedad: <span id="hum">--</span> %</p>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-<script>
+  <script>
+    
 const firebaseConfig = {
   apiKey: "AIzaSyAXRn2uoDYKDBuzcOnQ32-urVcuVtlwh3o",
   authDomain: "powermind-b092f.firebaseapp.com",
@@ -19,12 +30,14 @@ const firebaseConfig = {
   measurementId: "G-T7DWGBN5WB"
 };
 
-  firebase.initializeApp(firebaseConfig);
-  const dbRef = firebase.database().ref("arduinoData");
+    firebase.initializeApp(firebaseConfig);
+    const dbRef = firebase.database().ref("arduinoData");
 
-  dbRef.on("value", (snapshot) => {
-    const data = snapshot.val();
-    document.getElementById("temp").textContent = data.temperatura ?? "--";
-    document.getElementById("hum").textContent = data.humedad ?? "--";
-  });
-</script>
+    dbRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      document.getElementById("temp").textContent = data?.temperatura ?? "--";
+      document.getElementById("hum").textContent = data?.humedad ?? "--";
+    });
+  </script>
+</body>
+</html>
