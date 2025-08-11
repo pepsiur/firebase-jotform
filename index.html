@@ -1,0 +1,30 @@
+<div style="font-family: Arial; text-align: center; padding: 10px;">
+  <h2>📡 Datos en tiempo real</h2>
+  <p style="font-size: 20px;">🌡 Temperatura: <span id="temp">--</span> °C</p>
+  <p style="font-size: 20px;">💧 Humedad: <span id="hum">--</span> %</p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAXRn2uoDYKDBuzcOnQ32-urVcuVtlwh3o",
+  authDomain: "powermind-b092f.firebaseapp.com",
+  databaseURL: "https://powermind-b092f-default-rtdb.firebaseio.com",
+  projectId: "powermind-b092f",
+  storageBucket: "powermind-b092f.firebasestorage.app",
+  messagingSenderId: "353358193808",
+  appId: "1:353358193808:web:031fa7cbb37139990f2415",
+  measurementId: "G-T7DWGBN5WB"
+};
+
+  firebase.initializeApp(firebaseConfig);
+  const dbRef = firebase.database().ref("arduinoData");
+
+  dbRef.on("value", (snapshot) => {
+    const data = snapshot.val();
+    document.getElementById("temp").textContent = data.temperatura ?? "--";
+    document.getElementById("hum").textContent = data.humedad ?? "--";
+  });
+</script>
